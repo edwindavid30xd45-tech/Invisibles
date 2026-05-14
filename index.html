@@ -962,12 +962,12 @@
     /* ═══════════════════════════════════════════════
        3. REPRODUCTOR DE AUDIO REAL (Ep. 4)
       // 1. Capturamos todos los elementos primero */
-    const audio     = document.getElementById('ep4-audio');
-    const btnPlay   = document.getElementById('ep4-play');
-    const btnBack   = document.getElementById('ep4-back');
-    const btnFwd    = document.getElementById('ep4-fwd');
-    const iconPlay  = document.getElementById('ep4-icon-play');
-    const iconPause = document.getElementById('ep4-icon-pause');
+    const audio     = document.getElementById('ep1-audio');
+    const btnPlay   = document.getElementById('ep1-play');
+    const btnBack   = document.getElementById('ep1-back');
+    const btnFwd    = document.getElementById('ep1-fwd');
+    const iconPlay  = document.getElementById('ep1-icon-play');
+    const iconPause = document.getElementById('ep1-icon-pause');
     const artIcon   = document.querySelector('.podcast-art__icon');
 
     // 2. Función para formatear el tiempo
@@ -1015,7 +1015,7 @@
 
       // Cargar duración total
       audio.onloadedmetadata = () => {
-        const txtTot = document.getElementById('ep4-time-tot');
+        const txtTot = document.getElementById('ep1-time-tot');
         if (txtTot) txtTot.textContent = fmt(audio.duration);
       };
 
