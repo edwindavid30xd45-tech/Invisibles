@@ -83,7 +83,7 @@
         <span class="story__label">Sofía</span>
       </button>
 
-      <button class="story" data-story="ep4" aria-label="Episodio 4">
+      <button class="story" data-story="ep1" aria-label="Episodio 1">
         <div class="story__ring story__ring--podcast">
           <div class="story__avatar" style="background:var(--ink)">
             <svg width="16" height="16" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
@@ -91,7 +91,7 @@
             </svg>
           </div>
         </div>
-        <span class="story__label">Ep. 4</span>
+        <span class="story__label">Ep. 1</span>
       </button>
 
     </div>
@@ -191,7 +191,7 @@
         </div>
         <div class="podcast-info">
           <p class="podcast-episode">EPISODIO 1</p>
-          <h3 class="podcast-title">Los papeles que nos definen</h3>
+          <h3 class="podcast-title">Antes de Desaparecer</h3>
           <p class="podcast-desc">Documentos, formularios, casillas. ¿Quién decide quién eres cuando el sistema no tiene la opción correcta?</p>
           <div class="podcast-progress">
             <div class="progress-bar">
@@ -960,7 +960,7 @@
     }
     
     /* ═══════════════════════════════════════════════
-       3. REPRODUCTOR DE AUDIO REAL (Ep. 4)
+       3. REPRODUCTOR DE AUDIO REAL (Ep. 1)
       // 1. Capturamos todos los elementos primero */
     const audio     = document.getElementById('ep1-audio');
     const btnPlay   = document.getElementById('ep1-play');
@@ -1009,7 +1009,7 @@
         if (barrita) barrita.style.width = pct.toFixed(2) + '%';
         
         // Cambiar número de tiempo actual
-        const txtCur = document.getElementById('ep4-time-cur');
+        const txtCur = document.getElementById('ep1-time-cur');
         if (txtCur) txtCur.textContent = fmt(audio.currentTime);
       };
 
@@ -1143,7 +1143,7 @@
         tag: '#lengua · #herencia',
         accent: '#6e7f8e',
       },
-      ep4: null, // Redirige al podcast
+      ep1: null, // Redirige al podcast
     };
 
     const storyOrder = ['valentina', 'marco', 'anonimo', 'sofia'];
@@ -1164,7 +1164,7 @@
     const svNext      = document.getElementById('sv-next');
 
     function openStory(key) {
-      if (key === 'ep4') {
+      if (key === 'ep1') {
         showSection('podcast');
         // resaltar tarjeta del podcast
         const podCard = document.querySelector('.post--podcast');
