@@ -444,7 +444,7 @@ img { display: block; max-width: 100%; }
   position: absolute;
   top: 0;
   left: 0;
-  height: 100%;
+  height: 70%;
   width: 0%; 
   background: var(--ink); /* MAGIA: Negro de día, Blanco de noche automático */
   border-radius: 2px;
@@ -452,6 +452,10 @@ img { display: block; max-width: 100%; }
 }
 .progress-bar:hover {
   height: 4px; /* Se crece un poquito al pasar el mouse */
+  transition: height 0.2s;
+}
+.progress-fill:hover {
+  height: 90% /* Se crece un poquito al pasar el mouse */
   transition: height 0.2s;
 }
 .progress-meta {
