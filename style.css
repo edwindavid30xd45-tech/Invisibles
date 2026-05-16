@@ -456,7 +456,7 @@ img { display: block; max-width: 100%; }
 }
 .progress-fill:hover {
   height: 90% /* Se crece un poquito al pasar el mouse */
-  transition: height 0.2s;
+ 
 }
 .progress-meta {
   display: flex;
