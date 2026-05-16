@@ -1015,6 +1015,7 @@
 
       // Cargar duración total
       audio.onloadedmetadata = () => {
+        console.log("Duración:", audio.duration);
         const txtTot = document.getElementById('ep1-time-tot');
         if (txtTot) txtTot.textContent = fmt(audio.duration);
       };
