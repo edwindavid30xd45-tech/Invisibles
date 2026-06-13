@@ -245,7 +245,7 @@
           <span id="contador-episodio-1">0</span>
         </button>
 
-        <button class="action-btn" aria-label="Compartir">
+        <button class="action-btn" id="btn-difundir-episodio-1" aria-label="Compartir">
           <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
             <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
             <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
@@ -1505,6 +1505,33 @@ function cargarComentarios(idPost) {
 
 // Iniciar lectura de comentarios
 cargarComentarios('episodio-1');
+
+// ==========================================
+// LÓGICA PARA EL BOTÓN DE DIFUNDIR (COMPARTIR)
+// ==========================================
+document.getElementById('btn-difundir-episodio-1').addEventListener('click', async () => {
+    // Aquí puedes personalizar el mensaje que le llegará a la gente
+    const datosParaCompartir = {
+        title: 'Invisibles — El valor de la identidad', // El título de tu página o post
+        text: '¡Tienes que ver este nuevo episodio!', // El texto que acompaña el enlace
+        url: window.location.href // Esto toma automáticamente el enlace actual de tu página
+    };
+
+    try {
+        // Verifica si el navegador del usuario soporta el menú nativo de compartir
+        if (navigator.share) {
+            await navigator.share(datosParaCompartir);
+            console.log('¡Post compartido con éxito!');
+        } else {
+            // Plan B: Si no hay menú nativo, le copia el enlace al portapapeles
+            await navigator.clipboard.writeText(window.location.href);
+            alert('¡Enlace copiado al portapapeles listo para pegar y compartir!');
+        }
+    } catch (error) {
+        console.error('Error al intentar compartir:', error);
+    }
+});
+  
 </script>
   
 </body>
