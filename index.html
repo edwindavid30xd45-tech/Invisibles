@@ -739,10 +739,9 @@
         homeEls.forEach(el => (el.hidden = false));
         filterPosts('all');
 
-      } else if (key === 'podcast') {
-        // Mostrar home pero solo posts tipo podcast
-        homeEls.forEach(el => (el.hidden = false));
-        filterPosts('podcast');
+     } else if (key === 'podcast') {
+        // Mostrar la sección dedicada del podcast
+        pageSections.podcast.hidden = false;
 
       } else if (key === 'mapa') {
         // Mostrar sección mapa + toast especial
