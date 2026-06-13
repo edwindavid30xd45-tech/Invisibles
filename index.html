@@ -1449,40 +1449,61 @@
     };
   }
 
-  // Activar para tu episodio 1
-  conectarResonancias('episodio-1');
-// 1. Función para enviar el texto a Firebase
-function enviarComentario(idPost) {
-    const input = document.getElementById('input-' + idPost);
-    const texto = input.value.trim();
-
-    if (texto !== "") {
-        // Guarda el comentario en una carpeta llamada 'comentarios/episodio-1'
-        db.ref('comentarios/' + idPost).push({
-            mensaje: texto,
-            fecha: Date.now()
-        });
-        input.value = ""; // Limpia el cuadro después de enviar
+  // 1. Lógica para que el botón muestre u oculte la sección de comentarios
+document.getElementById('btn-comentar-episodio-1').addEventListener('click', () => {
+    const seccion = document.getElementById('seccion-comentarios-episodio-1');
+    const preview = document.getElementById('preview-episodio-1');
+    
+    if (seccion.style.display === 'none') {
+        seccion.style.display = 'block'; // Mostrar la caja completa
+        preview.style.display = 'none';  // Ocultar la vista previa
+    } else {
+        seccion.style.display = 'none';  // Ocultar caja completa
+        preview.style.display = 'flex';  // Volver a mostrar vista previa
     }
-}
+});
 
-// 2. Función para mostrar los comentarios en pantalla automáticamente
+// 2. Función mejorada para cargar comentarios en pantalla
 function cargarComentarios(idPost) {
-    const lista = document.getElementById('lista-comentarios-' + idPost);
+    const listaCompleta = document.getElementById('lista-comentarios-' + idPost);
+    const vistaPrevia = document.getElementById('preview-' + idPost);
+    const contadorTexto = document.getElementById('contador-' + idPost); // El numerito del logo
     
     db.ref('comentarios/' + idPost).on('value', (snapshot) => {
-        lista.innerHTML = ""; // Limpia la lista vieja
+        listaCompleta.innerHTML = "";
+        vistaPrevia.innerHTML = "";
+        
+        let comentarios = [];
         snapshot.forEach((hijo) => {
-            const dato = hijo.val();
+            comentarios.push(hijo.val());
+        });
+
+        // 3. Actualizar el número (ej: 78) automáticamente
+        if (contadorTexto) {
+            contadorTexto.textContent = comentarios.length;
+        }
+        
+        // 4. Mostrar TODOS los comentarios en la sección oculta
+        comentarios.forEach(dato => {
             const p = document.createElement('p');
             p.style.cssText = "font-size: 0.85rem; margin-bottom: 5px; padding: 8px; background: var(--surface-2); border-radius: 6px; color: var(--ink);";
             p.textContent = dato.mensaje;
-            lista.appendChild(p);
+            listaCompleta.appendChild(p);
+        });
+
+        // 5. Mostrar SOLO LOS ÚLTIMOS 3 en la vista previa
+        const ultimos3 = comentarios.slice(-3);
+        ultimos3.forEach(dato => {
+            const pPreview = document.createElement('p');
+            // Estilo para los comentarios predeterminados fuera de la caja
+            pPreview.style.cssText = "font-size: 0.85rem; color: var(--ink); margin: 0; padding-left: 8px; border-left: 2px solid var(--surface-3);";
+            pPreview.innerHTML = `<strong>Anónimo:</strong> ${dato.mensaje}`;
+            vistaPrevia.appendChild(pPreview);
         });
     });
 }
 
-// Activa la lectura de comentarios para el episodio 1
+// Iniciar lectura de comentarios
 cargarComentarios('episodio-1');
 </script>
   
