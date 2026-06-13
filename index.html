@@ -890,13 +890,28 @@
 
       const isAnon = optAnon.classList.contains('toggle-opt--active');
 
-      // ── PUBLICACIÓN EN TIEMPO REAL ──
-      // Si estamos en filtro podcast, volvemos a 'home' para que el post sea visible
-      if (currentFilter === 'podcast') showSection('home');
-      injectPost(name, text, isAnon);
+      // ── 1. GUARDAR EN FIREBASE ──
+      // Empujamos los datos a la base de datos en la carpeta 'testimonios'
+      db.ref('testimonios').push({
+          nombre: isAnon ? 'Anónimo/a' : name,
+          texto: text,
+          anonimo: isAnon,
+          fecha: Date.now()
+      }).then(() => {
+          // ── 2. ACTUALIZAR INTERFAZ ──
+          // Si estamos en filtro podcast, volvemos a 'home' para que el post sea visible
+          if (currentFilter === 'podcast') showSection('home');
+          
+          // Inyectamos el post en el muro para que el usuario lo vea de inmediato
+          injectPost(name, text, isAnon);
 
-      formView.hidden = true;
-      successView.hidden = false;
+          // Ocultamos el formulario y mostramos el mensaje de éxito
+          formView.hidden = true;
+          successView.hidden = false;
+      }).catch((error) => {
+          console.error("Error al guardar en Firebase: ", error);
+          alert("Hubo un error al enviar tu testimonio. Revisa tu conexión a internet.");
+      });
     });
 
     function shake(el) {
