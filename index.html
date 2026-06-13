@@ -547,10 +547,21 @@
       </div>
       <h2 class="profile-name">Invisibles</h2>
       <p class="profile-bio">Proyecto transmedia universitario sobre el valor de la identidad. Cada voz cuenta. Cada historia importa.</p>
-      <div class="profile-stats">
-        <div class="stat"><span class="stat-n">247</span><span class="stat-l">Testimonios</span></div>
-        <div class="stat"><span class="stat-n">4</span><span class="stat-l">Episodios</span></div>
-        <div class="stat"><span class="stat-n">1.2k</span><span class="stat-l">Resonancias</span></div>
+     <div class="profile-stats">
+        <div class="stat">
+          <span class="stat-n" id="contador-testimonios-perfil">0</span>
+          <span class="stat-l">Testimonios</span>
+        </div>
+        
+        <div class="stat">
+          <span class="stat-n">4</span>
+          <span class="stat-l">Posts</span>
+        </div>
+        
+        <div class="stat">
+          <span class="stat-n" id="contador-visitas-perfil">0</span>
+          <span class="stat-l">Resonancias</span>
+        </div>
       </div>
     </div>
   </section>
@@ -1529,6 +1540,47 @@ document.getElementById('btn-difundir-episodio-1').addEventListener('click', asy
         }
     } catch (error) {
         console.error('Error al intentar compartir:', error);
+    }
+});
+
+// ==========================================
+// CIFRAS REALES EN LA SECCIÓN DEL PERFIL
+// ==========================================
+
+// 1. Contador de Testimonios
+// Cuenta automáticamente los elementos guardados en la carpeta "testimonios"
+db.ref('testimonios').on('value', (snapshot) => {
+    // numChildren() devuelve la cantidad exacta de historias subidas
+    const totalTestimonios = snapshot.numChildren(); 
+    const elementoTestimonios = document.getElementById('contador-testimonios-perfil');
+    
+    if (elementoTestimonios) {
+        elementoTestimonios.textContent = totalTestimonios;
+    }
+});
+
+// 2. Contador de Resonancias / Visitas de la página
+const visitasRef = db.ref('analitica/visitasTotales');
+
+// Sumar +1 cada vez que un usuario carga o entra a la página
+visitasRef.transaction((valorActual) => {
+    return (valorActual || 0) + 1;
+});
+
+// Escuchar y mostrar el total de visitas actualizado
+visitasRef.on('value', (snapshot) => {
+    const totalVisitas = snapshot.val() || 0;
+    const elementoVisitas = document.getElementById('contador-visitas-perfil');
+    
+    // TRUCO PRO: Para mantener tu estilo minimalista, 
+    // si las visitas pasan de 1000, las mostramos como "1.2k"
+    let visitasFormateadas = totalVisitas;
+    if (totalVisitas >= 1000) {
+        visitasFormateadas = (totalVisitas / 1000).toFixed(1) + 'k';
+    }
+
+    if (elementoVisitas) {
+        elementoVisitas.textContent = visitasFormateadas;
     }
 });
   
