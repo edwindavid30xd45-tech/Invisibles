@@ -230,32 +230,21 @@
         </div>
       </div>
 
-      <div class="post__actions">
+     <div class="post__actions">
         <button class="action-btn" aria-label="Resonar">
           <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
             <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
           </svg>
           <span>512</span>
         </button>
-        <button class="action-btn" aria-label="Comentar">
+
+        <button class="action-btn" id="btn-comentar-episodio-1" aria-label="Comentar">
           <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
             <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
           </svg>
-          <span>78</span>
+          <span id="contador-episodio-1">0</span>
         </button>
-        <div class="comments-section" style="margin-top: 15px;">
-    <div id="lista-comentarios-episodio-1" style="margin-bottom: 10px; max-height: 200px; overflow-y: auto;">
-        </div>
-    
-    <div style="display: flex; gap: 10px;">
-        <input type="text" id="input-episodio-1" placeholder="Escribir comentario..." 
-               style="flex-grow: 1; border-radius: 8px; border: 1px solid var(--surface-3); padding: 5px 10px; background: var(--white); color: var(--ink);">
-        <button onclick="enviarComentario('episodio-1')" 
-                style="background: var(--accent); color: white; border: none; border-radius: 8px; padding: 5px 15px; cursor: pointer;">
-            Enviar
-        </button>
-    </div>
-</div>
+
         <button class="action-btn" aria-label="Compartir">
           <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
             <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
@@ -264,6 +253,23 @@
           <span>Difundir</span>
         </button>
       </div>
+      <div class="comments-preview" id="preview-episodio-1" style="margin-top: 10px; display: flex; flex-direction: column; gap: 5px;">
+          </div>
+
+      <div class="comments-section" id="seccion-comentarios-episodio-1" style="display: none; margin-top: 15px; border-top: 1px solid var(--surface-3); padding-top: 15px;">
+          <div id="lista-comentarios-episodio-1" style="margin-bottom: 10px; max-height: 200px; overflow-y: auto;">
+          </div>
+          
+          <div style="display: flex; gap: 10px;">
+              <input type="text" id="input-episodio-1" placeholder="Escribir comentario..." 
+                     style="flex-grow: 1; border-radius: 8px; border: 1px solid var(--surface-3); padding: 5px 10px; background: var(--white); color: var(--ink);">
+              <button onclick="enviarComentario('episodio-1')" 
+                      style="background: var(--accent); color: white; border: none; border-radius: 8px; padding: 5px 15px; cursor: pointer;">
+                  Enviar
+              </button>
+          </div>
+      </div>
+
     </article>
 
     <!-- POST 3 — Testimonio anónimo -->
