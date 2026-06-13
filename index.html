@@ -726,34 +726,41 @@
 
     let currentFilter = 'home'; // estado actual
 
-    function showSection(key) {
+function showSection(key) {
       currentFilter = key;
 
-      // Ocultar todas las páginas secundarias
-      Object.values(pageSections).forEach(el => el && (el.hidden = true));
-      // Ocultar home por defecto
-      homeEls.forEach(el => (el.hidden = true));
+      // 1. Ocultar páginas secundarias y elementos del home por defecto
+      Object.values(pageSections).forEach(el => { if (el) el.style.display = 'none'; });
+      homeEls.forEach(el => { if (el) el.style.display = 'none'; });
+
+      // 2. Identificar el contenedor específico de los posts (CAMBIA '.feed' POR TU CLASE REAL)
+      const feedContainer = document.querySelector('.feed'); 
 
       if (key === 'home') {
-        // Mostrar home, todos los posts visibles
-        homeEls.forEach(el => (el.hidden = false));
+        // Mostrar todo el home y asegurar que el feed sea visible
+        homeEls.forEach(el => { if (el) el.style.display = ''; });
+        if (feedContainer) feedContainer.style.display = ''; 
         filterPosts('all');
 
-    } else if (key === 'podcast') {
-        // Mostrar home pero solo posts tipo podcast
-        homeEls.forEach(el => (el.hidden = false));
-        filterPosts('podcast');
+      } else if (key === 'podcast') {
+        // Mostrar homeEls para conservar las historias en la parte superior
+        homeEls.forEach(el => { if (el) el.style.display = ''; });
+        
+        // APAGAR específicamente el muro de posts para que no estorbe
+        if (feedContainer) feedContainer.style.display = 'none'; 
+        
+        // Encender la sección con las tarjetas de los episodios
+        if (pageSections.podcast) pageSections.podcast.style.display = 'block';
 
       } else if (key === 'mapa') {
-        // Mostrar sección mapa + toast especial
-        pageSections.mapa.hidden = false;
+        if (pageSections.mapa) pageSections.mapa.style.display = 'block';
         showToast('📍 Próximamente: Mapeo de historias en Popayán');
 
       } else if (key === 'perfil') {
-        pageSections.perfil.hidden = false;
+        if (pageSections.perfil) pageSections.perfil.style.display = 'block';
       }
 
-      // Actualizar estado activo en nav
+      // Actualizar el estilo del menú de navegación
       navItems.forEach(btn => {
         const active = btn.dataset.section === key;
         btn.classList.toggle('nav-item--active', active);
@@ -763,7 +770,6 @@
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-
     function filterPosts(type) {
       // El feed-label siempre visible en home
       const label = document.querySelector('.feed-label');
