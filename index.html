@@ -393,10 +393,12 @@
         </div>
         
         <!-- 1. AGREGAS TU AUDIO OCULTO AQUÍ (Asegúrate de cambiar el ID y el src) -->
-        <audio id="ep1-audio" src="https://res.cloudinary.com/dvumqowaz/video/upload/v1778778564/Ep1_ynrd74.mp3"></audio>
+        <audio id="ep1-audio" preload="metadata" 
+          src="https://res.cloudinary.com/dvumqowaz/video/upload/v1778778564/Ep1_ynrd74.mp3">
+        </audio>
 
         <!-- 2. LE AGREGAS UN ONCLICK AL BOTÓN QUE YA TENÍAS -->
-        <button class="episode-play" aria-label="Reproducir ep. 1" onclick="playPodcast('audio-podcast-ep1', this)">
+        <button class="episode-play" aria-label="Reproducir ep1" onclick="playPodcast('audio-podcast-ep1', this)">
           <svg width="18" height="18" fill="none" viewBox="0 0 24 24">
             <polygon points="5 3 19 12 5 21 5 3" fill="currentColor"/>
           </svg>
