@@ -1567,46 +1567,23 @@ visitasRef.on('value', (snapshot) => {
     const totalVisitas = snapshot.val() || 0;
     const elementoVisitas = document.getElementById('contador-visitas-perfil');
     
-    // TRUCO PRO: Para mantener tu estilo minimalista, 
-    // si las visitas pasan de 1000, las mostramos como "1.2k"
-    let visitasFormateadas = totalVisitas;
-    if (totalVisitas >= 1000) {
-        visitasFormateadas = (totalVisitas / 1000).toFixed(1) + 'k';
+    function playPodcast(audioId, buttonElement) {
+    const audio = document.getElementById(audioId);
+    
+    if (!audio) {
+        console.error("No encontré el audio con ID: " + audioId);
+        return;
     }
 
-    if (elementoVisitas) {
-        elementoVisitas.textContent = visitasFormateadas;
+    if (audio.paused) {
+        audio.play();
+        // Cambiar a icono de pausa
+        buttonElement.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
+    } else {
+        audio.pause();
+        // Cambiar a icono de play
+        buttonElement.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>';
     }
-});
-
-// ==========================================
-// REPRODUCTOR DE LA SECCIÓN PODCAST
-// ==========================================
-function playPodcast(audioId, buttonElement) {
-  // 1. Pausar TODOS los audios de la página antes de reproducir este
-  document.querySelectorAll('audio').forEach(el => {
-    if (el.id !== audioId) {
-      el.pause();
-    }
-  });
-
-  // 2. Restaurar el ícono de "Play" en TODOS los botones de las tarjetas
-  document.querySelectorAll('.episode-play').forEach(btn => {
-    if (btn !== buttonElement) {
-      btn.innerHTML = '<svg width="18" height="18" fill="none" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" fill="currentColor"/></svg>';
-    }
-  });
-
-  // 3. Lógica normal para el botón actual
-  const audio = document.getElementById(audioId);
-  
-  if (audio.paused) {
-    audio.play();
-    buttonElement.innerHTML = '<svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
-  } else {
-    audio.pause();
-    buttonElement.innerHTML = '<svg width="18" height="18" fill="none" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" fill="currentColor"/></svg>';
-  }
 }
   
 </script>
