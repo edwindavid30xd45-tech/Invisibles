@@ -385,49 +385,23 @@
       <h2 class="section-title">Podcast</h2>
       <p class="section-sub">Todas las voces. Todos los episodios.</p>
     </div>
-
-    <div class="episode-list">
-      <div class="episode-card episode-card--active">
-        <div class="episode-num">04</div>
-        <div class="episode-info">
-          <p class="episode-title">Los papeles que nos definen</p>
-          <p class="episode-meta">28 min · 5 abr</p>
-        </div>
-        <button class="episode-play" aria-label="Reproducir ep. 4">
-          <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" fill="currentColor"/></svg>
-        </button>
-      </div>
-      <div class="episode-card">
-        <div class="episode-num">03</div>
-        <div class="episode-info">
-          <p class="episode-title">El peso de un apellido</p>
-          <p class="episode-meta">32 min · 22 mar</p>
-        </div>
-        <button class="episode-play" aria-label="Reproducir ep. 3">
-          <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" fill="currentColor"/></svg>
-        </button>
-      </div>
-      <div class="episode-card">
-        <div class="episode-num">02</div>
-        <div class="episode-info">
-          <p class="episode-title">Invisible en el sistema</p>
-          <p class="episode-meta">24 min · 10 mar</p>
-        </div>
-        <button class="episode-play" aria-label="Reproducir ep. 2">
-          <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" fill="currentColor"/></svg>
-        </button>
-      </div>
-      <div class="episode-card">
+<div class="episode-card">
         <div class="episode-num">01</div>
         <div class="episode-info">
           <p class="episode-title">¿Quién te nombró?</p>
           <p class="episode-meta">19 min · 1 mar</p>
         </div>
-        <button class="episode-play" aria-label="Reproducir ep. 1">
-          <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" fill="currentColor"/></svg>
+        
+        <!-- 1. AGREGAS TU AUDIO OCULTO AQUÍ (Asegúrate de cambiar el ID y el src) -->
+        <audio id="audio-podcast-ep1" src="ruta/a/tu/audio-episodio-1.mp3"></audio>
+
+        <!-- 2. LE AGREGAS UN ONCLICK AL BOTÓN QUE YA TENÍAS -->
+        <button class="episode-play" aria-label="Reproducir ep. 1" onclick="playPodcast('audio-podcast-ep1', this)">
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24">
+            <polygon points="5 3 19 12 5 21 5 3" fill="currentColor"/>
+          </svg>
         </button>
-      </div>
-    </div>
+       </div>
   </section>
 
   <!-- ░░ SECCIÓN MAPA ░░ -->
@@ -1604,6 +1578,36 @@ visitasRef.on('value', (snapshot) => {
         elementoVisitas.textContent = visitasFormateadas;
     }
 });
+
+// ==========================================
+// REPRODUCTOR DE LA SECCIÓN PODCAST
+// ==========================================
+function playPodcast(audioId, buttonElement) {
+  // 1. Pausar TODOS los audios de la página antes de reproducir este
+  document.querySelectorAll('audio').forEach(el => {
+    if (el.id !== audioId) {
+      el.pause();
+    }
+  });
+
+  // 2. Restaurar el ícono de "Play" en TODOS los botones de las tarjetas
+  document.querySelectorAll('.episode-play').forEach(btn => {
+    if (btn !== buttonElement) {
+      btn.innerHTML = '<svg width="18" height="18" fill="none" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" fill="currentColor"/></svg>';
+    }
+  });
+
+  // 3. Lógica normal para el botón actual
+  const audio = document.getElementById(audioId);
+  
+  if (audio.paused) {
+    audio.play();
+    buttonElement.innerHTML = '<svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
+  } else {
+    audio.pause();
+    buttonElement.innerHTML = '<svg width="18" height="18" fill="none" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3" fill="currentColor"/></svg>';
+  }
+}
   
 </script>
   
