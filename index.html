@@ -1567,27 +1567,7 @@ visitasRef.transaction((valorActual) => {
 // Escuchar y mostrar el total de visitas actualizado
 visitasRef.on('value', (snapshot) => {
     const totalVisitas = snapshot.val() || 0;
-    const elementoVisitas = document.getElementById('contador-visitas-perfil');
-    
-    function playPodcast(audioId, buttonElement) {
-    const audio = document.getElementById(audioId);
-    
-    if (!audio) {
-        console.error("No encontré el audio con ID: " + ep1);
-        return;
-    }
-
-    if (audio.paused) {
-        audio.play();
-        // Cambiar a icono de pausa
-        buttonElement.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
-    } else {
-        audio.pause();
-        // Cambiar a icono de play
-        buttonElement.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>';
-    }
-}
-  
+    const elementoVisitas = document.getElementById('contador-visitas-perfil');  
 </script>
   
 </body>
